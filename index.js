@@ -8,7 +8,7 @@ const formatCurrency = (sum) => {
     sum === undefined ||
     Number.isNaN(parseInt(sum)) ||
     sum === 0 ||
-    sum.toString().len == 1
+    sum.toString().length == 1
   ) {
     return "0.00";
   }

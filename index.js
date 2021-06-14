@@ -9,8 +9,9 @@ const formatCurrency = (sum) => {
     Number.isNaN(parseInt(sum)) ||
     sum === 0 ||
     sum.toString().len == 1
-  )
+  ) {
     return "0.00";
+  }
 
   var sumStr = sum.toString();
   if (sumStr.length == 2) {
@@ -29,11 +30,23 @@ const createList = (scannedItems) =>
   scannedItems.capitalize().split(" ").join("").split(",");
 const isValid = (item) => item in ITEMS;
 const getTotal = (itemList) => {
-  let total = 0;
+  let appleNum = 0;
+  let orangeNum = 0;
   for (let i = 0; i < itemList.length; i++) {
-    total += ITEMS[itemList[i]];
+    if (itemList[i] == "Apple") {
+      appleNum++;
+    } else {
+      orangeNum++;
+    }
   }
-  return total;
+  let total =
+    ITEMS.Apple * Math.ceil(appleNum / 2) +
+    ITEMS.Orange * Math.floor(orangeNum / 3) * 2 +
+    (orangeNum % 3) * ITEMS.Orange;
+  let discount =
+    Math.floor(appleNum / 2) * ITEMS.Apple +
+    Math.floor(orangeNum / 3) * ITEMS.Orange;
+  return { total, discount };
 };
 
 console.log("---------------------------------------------");
@@ -49,8 +62,10 @@ const scanner = require("readline").createInterface({
 scanner.question("Please scan your items : ", (scannedItems) => {
   let itemList = createList(scannedItems);
   if (itemList.every(isValid)) {
-    let total = getTotal(itemList);
-    console.log("Summary: £" + formatCurrency(total));
+    let { total, discount } = getTotal(itemList);
+    console.log("Total    : £" + formatCurrency(total + discount));
+    console.log("Discount : £" + formatCurrency(discount));
+    console.log("Summary  : £" + formatCurrency(total));
   } else {
     console.log('You can only scan "Apple" or "Orange"');
   }

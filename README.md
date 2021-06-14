@@ -1,12 +1,14 @@
 # LeoLearning
 Pre-interview Exercise for Developer Candidates
 
-Node must be installed to run the app
+Node must be installed on your computer to run the app
 
-Open Command Prompt
+1. Open Command Prompt
 
-Navigate to the folder containing index.js 
+2. Navigate to the folder containing index.js 
 
-Simply run "node index.js"
+3. Simply run "node index.js"
 
-Application should run
+4. Application should run
+
+![Screenshot](./screenshot.png)
